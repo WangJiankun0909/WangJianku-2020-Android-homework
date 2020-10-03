@@ -1,0 +1,32 @@
+package com.example.homework001.util;
+
+import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
+
+public class DisplayUtils {
+
+    //屏幕宽度
+    public static int getScreenWidth(Context ctx){
+        WindowManager wm =(WindowManager)ctx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm =new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
+    }
+
+    //屏幕高度
+    public static int getScreenHeight(Context ctx){
+        WindowManager wm =(WindowManager)ctx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm =new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        return dm.heightPixels;
+    }
+
+    //像素密度
+    public static float getScreenDensity(Context ctx){
+        WindowManager wm =(WindowManager)ctx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm =new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        return dm.density;
+    }
+}
