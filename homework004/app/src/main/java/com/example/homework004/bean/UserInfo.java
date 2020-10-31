@@ -5,9 +5,8 @@ public class UserInfo {
     public int sn;
     public String name;
     public int age;
-    public long height;
-    public float weight;
-    public boolean married;
+    public boolean gender;
+    public boolean district;
     public String update_time;
     public String phone;
     public String pwd;
@@ -17,9 +16,8 @@ public class UserInfo {
         sn = 0;
         name = "";
         age = 0;
-        height = 0L;
-        weight = 0.0f;
-        married = false;
+        gender = false;
+        district = false;
         update_time = "";
         phone = "";
         pwd = "";

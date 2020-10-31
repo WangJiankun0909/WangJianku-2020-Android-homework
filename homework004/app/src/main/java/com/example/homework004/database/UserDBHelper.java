@@ -144,9 +144,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
             ContentValues cv = new ContentValues();
             cv.put("name", info.name);
             cv.put("age", info.age);
-            cv.put("height", info.height);
-            cv.put("weight", info.weight);
-            cv.put("married", info.married);
+            cv.put("district", info.district);
             cv.put("update_time", info.update_time);
             cv.put("phone", info.phone);
             cv.put("pwd", info.pwd);
@@ -165,9 +163,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("name", info.name);
         cv.put("age", info.age);
-        cv.put("height", info.height);
-        cv.put("weight", info.weight);
-        cv.put("married", info.married);
+        cv.put("married", info.district);
         cv.put("update_time", info.update_time);
         cv.put("phone", info.phone);
         cv.put("pwd", info.pwd);
@@ -195,10 +191,8 @@ public class UserDBHelper extends SQLiteOpenHelper {
             info.sn = cursor.getInt(1); // 取出整型数
             info.name = cursor.getString(2); // 取出字符串
             info.age = cursor.getInt(3);
-            info.height = cursor.getLong(4);
-            info.weight = cursor.getFloat(5); // 取出浮点数
             //SQLite没有布尔型，用0表示false，用1表示true
-            info.married = (cursor.getInt(6) == 0) ? false : true;
+            info.district= (cursor.getInt(6) == 0) ? false : true;
             info.update_time = cursor.getString(7);
             info.phone = cursor.getString(8);
             info.pwd = cursor.getString(9);

@@ -30,15 +30,15 @@ import com.example.homework004.util.DateUtil;
 import com.example.homework004.util.ViewUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
-
     private RadioGroup rg_login; // 声明一个单选组对象
     private RadioButton rb_password; // 声明一个单选按钮对象
     private RadioButton rb_verifycode; // 声明一个单选按钮对象
     private EditText et_phone; // 声明一个编辑框对象
     private TextView tv_password; // 声明一个文本视图对象
     private EditText et_password; // 声明一个编辑框对象
-    private Button btn_forget; // 声明一个忘记密码按钮控件对象
+    private Button btn_forget;// 声明一个忘记密码按钮控件对象
     private Button btn_login; // 声明一个登录按钮控件对象
+    private Button btn_signup;//声明一个注册按钮控件对象
     private Switch sw_status; // 声明一个开关对象
 
     private int mRequestCode = 0; // 跳转页面时的请求代码
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         et_password = findViewById(R.id.et_password);
         btn_forget = findViewById(R.id.btn_forget);
         btn_login = findViewById(R.id.btn_login);
+        btn_signup = findViewById(R.id.btn_signup);//声明一个注册按钮控件对象
         sw_status = findViewById(R.id.sw_status);
 
         // 给rg_login设置单选监听器
@@ -77,20 +78,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_forget.setOnClickListener(this);
         btn_login.setOnClickListener(this);
+        btn_signup.setOnClickListener(this);
 
         initTypeSpinner();
 
         //从share_login.xml中获取共享参数对象
         mShared = getSharedPreferences("share_login", MODE_PRIVATE);
         // 获取共享参数中保存的手机号码
-        /*String phone = mShared.getString("phone", "");
+       String phone = mShared.getString("phone", "");
         // 获取共享参数中保存的密码
         String password = mShared.getString("password", "");
         et_phone.setText(phone); // 给手机号码编辑框填写上次保存的手机号
         et_password.setText(password); // 给密码编辑框填写上次保存的密码
-        */
+
 
         // 给密码编辑框注册一个焦点变化监听器，一旦焦点发生变化，就触发监听器的onFocusChange方法
+
         et_password.setOnFocusChangeListener(this);
 
     }
@@ -112,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sp_type.setAdapter(typeAdapter);
         // 设置下拉框默认显示第几项
         sp_type.setSelection(2);
-
         // 给下拉框设置选择监听器，一旦用户选中某一项，就触发监听器的onItemSelected方法
         sp_type.setOnItemSelectedListener(new TypeSelectedListener());
     }
@@ -123,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             mType = arg2;
         }
-
         // 未选择时的处理方法，通常无需关注
         public void onNothingSelected(AdapterView<?> arg0) {
         }
@@ -156,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
     // 定义编辑框的文本变化监听器
     private class HideTextWatcher implements TextWatcher {
         private EditText mView;
@@ -182,9 +182,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void afterTextChanged(Editable s) {
             if (mStr == null || mStr.length() == 0)
                 return;
-            // 手机号码输入达到11位，或者密码/验证码输入达到6位，都关闭输入法软键盘
+            // 手机号码输入达到11位，或者密码/验证码输入达到8位，都关闭输入法软键盘
             if ((mStr.length() == 11 && mMaxLength == 11) ||
-                    (mStr.length() == 6 && mMaxLength == 6)) {
+                    (mStr.length() == 8 && mMaxLength == 8)) {
                 ViewUtil.hideOneInputMethod(MainActivity.this, mView);
             }
         }
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // 根据手机号码到数据库中查询用户记录
                 UserInfo info = mHelper.queryByPhone(et_phone.getText().toString());
                 //输入的密码跟mPassword比较
-                // if (!et_password.getText().toString().equals(mPassword)) {
+                //if (!et_password.getText().toString().equals()) {
                 //输入的密码和数据库储存的比较
                 if (!et_password.getText().toString().equals(info.pwd)) {
                     Toast.makeText(this, "请输入正确的密码", Toast.LENGTH_SHORT).show();
@@ -236,6 +236,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else { // 验证码校验通过
                     loginSuccess(); // 提示用户登录成功
                 }
+            }
+        }else if (v.getId() == R.id.btn_signup){
+            if (rb_password.isChecked()) {
+                Intent intent = new Intent(this, SQLiteWriteActivity.class);
+                startActivityForResult(intent, mRequestCode);
             }
         }
     }
@@ -299,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("登录成功");
         builder.setMessage(desc);
-        builder.setPositiveButton("确定返回", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
@@ -330,3 +335,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 }
+
+
