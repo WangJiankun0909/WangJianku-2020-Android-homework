@@ -324,6 +324,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.et_password) {
             // 用户已输入手机号码，且密码框获得焦点
             if (phone.length() > 0 && hasFocus) {
+                //关闭数据库链接
+                mHelper.closeLink();
+                //打开数据库帮助器的读链接
+                mHelper.openReadLink();
                 // 根据手机号码到数据库中查询用户记录
                 UserInfo info = mHelper.queryByPhone(phone);
                 if (info != null) {

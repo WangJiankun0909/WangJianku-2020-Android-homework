@@ -97,6 +97,7 @@ public class SQLiteWriteActivity extends AppCompatActivity implements View.OnCli
             info.update_time = DateUtil.getNowDateTime("yyyy-MM-dd HH:mm:ss");
             info.pwd=pwd;
             info.phone=phone;
+            info.gender = true;
 
             // 执行数据库帮助器的插入操作
             mHelper.insert(info);

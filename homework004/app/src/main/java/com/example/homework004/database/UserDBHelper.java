@@ -72,8 +72,8 @@ public class UserDBHelper extends SQLiteOpenHelper {
         String create_sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
                 + "_id INTEGER PRIMARY KEY  AUTOINCREMENT NOT NULL,"
                 + "name VARCHAR NOT NULL," + "age INTEGER NOT NULL,"
-                + "height LONG NOT NULL," + "weight FLOAT NOT NULL,"
-                + "married INTEGER NOT NULL," + "update_time VARCHAR NOT NULL"
+                + "district BOOLEAN NOT NULL," + "gender BOOLEAN NOT NULL,"
+                + "update_time VARCHAR NOT NULL"
                 + ",phone VARCHAR" + ",pwd VARCHAR"
                 + ");";
         Log.d(TAG, "create_sql:" + create_sql);
@@ -144,6 +144,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
             ContentValues cv = new ContentValues();
             cv.put("name", info.name);
             cv.put("age", info.age);
+            cv.put("gender", info.gender);
             cv.put("district", info.district);
             cv.put("update_time", info.update_time);
             cv.put("phone", info.phone);
@@ -163,7 +164,8 @@ public class UserDBHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("name", info.name);
         cv.put("age", info.age);
-        cv.put("married", info.district);
+        cv.put("gender", info.gender);
+        cv.put("district", info.district);
         cv.put("update_time", info.update_time);
         cv.put("phone", info.phone);
         cv.put("pwd", info.pwd);
@@ -178,7 +180,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
 
     // 根据指定条件查询记录，并返回结果数据队列
     public ArrayList<UserInfo> query(String condition) {
-        String sql = String.format("select rowid,_id,name,age,height,weight,married,update_time," +
+        String sql = String.format("select rowid,_id,name,age,gender,district,update_time," +
                 "phone,pwd from %s where %s;", TABLE_NAME, condition);
         Log.d(TAG, "query sql: " + sql);
         ArrayList<UserInfo> infoArray = new ArrayList<UserInfo>();
@@ -192,10 +194,11 @@ public class UserDBHelper extends SQLiteOpenHelper {
             info.name = cursor.getString(2); // 取出字符串
             info.age = cursor.getInt(3);
             //SQLite没有布尔型，用0表示false，用1表示true
-            info.district= (cursor.getInt(6) == 0) ? false : true;
-            info.update_time = cursor.getString(7);
-            info.phone = cursor.getString(8);
-            info.pwd = cursor.getString(9);
+            info.gender=(cursor.getInt(4) == 0) ? false : true;
+            info.district= (cursor.getInt(5) == 0) ? false : true;
+            info.update_time = cursor.getString(6);
+            info.phone = cursor.getString(7);
+            info.pwd = cursor.getString(8);
             infoArray.add(info);
         }
         cursor.close(); // 查询完毕，关闭游标
