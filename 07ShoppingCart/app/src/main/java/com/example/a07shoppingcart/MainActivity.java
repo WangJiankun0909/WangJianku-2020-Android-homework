@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
     }
-
     // 把指定编号的商品添加到购物车
     private void addToCart(long goods_id) {
         mCount++;
