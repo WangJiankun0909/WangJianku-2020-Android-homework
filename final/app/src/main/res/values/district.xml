@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="district">
+        <item>天津本地</item>
+        <item>外地</item>
+    </string-array>
+</resources>
