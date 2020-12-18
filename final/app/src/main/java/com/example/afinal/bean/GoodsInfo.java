@@ -43,8 +43,8 @@ public class GoodsInfo {
     private static int[] gridImageArray = {R.drawable.pic_01, R.drawable.pic_02, R.drawable.pic_03
             , R.drawable.pic_04, R.drawable.pic_05, R.drawable.pic_06, R.drawable.pic_07
             , R.drawable.pic_08, R.drawable.pic_09, R.drawable.pic_10};
-    private static String[] gridTitleArray = {"新品", "超市", "百货", "便利店",
-            "地摊", "医药", "饭店", "餐厅", "会所", "菜市场"};
+    private static String[] gridTitleArray = {"新品", "超市", "家电", "玩具",
+            "水果", "医药", "服饰", "餐厅", "签到", "更多"};
 
     public static ArrayList<GoodsInfo> getDefaultGrid() {
         ArrayList<GoodsInfo> gridArray = new ArrayList<GoodsInfo>();
